@@ -1,5 +1,9 @@
-#[derive(PartialEq, Clone, Copy)]
+use thiserror::Error;
+
+#[derive(Debug, Error, PartialEq, Clone)]
 pub enum Error {
-    Parsing,
+    #[error("parsing error : `{0}`")]
+    Parsing(String),
+    #[error("input is empty")]
     Empty,
 }

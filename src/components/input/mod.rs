@@ -2,7 +2,7 @@ mod style;
 
 use yew::prelude::*;
 
-use super::super::errors::Error;
+use super::super::errors::Error as InputError;
 use std::{fmt::Display, str::FromStr};
 use style::*;
 use web_sys::HtmlInputElement;
@@ -25,7 +25,7 @@ where
     #[prop_or_default]
     pub right_icon: Html,
     #[prop_or_default]
-    pub on_input: Callback<Result<T, Error>>,
+    pub on_input: Callback<Result<T, InputError>>,
     pub input_type: InptuType,
 }
 
@@ -44,16 +44,20 @@ pub enum InptuType {
 pub fn Input<T>(props: &InputProps<T>) -> Html
 where
     T: PartialEq + Clone + Display + FromStr + 'static,
+    <T as FromStr>::Err: std::fmt::Debug + Display,
 {
     let oninput = {
         let on_input = props.on_input.clone();
         Callback::from(move |e: InputEvent| {
             let value = e.target_unchecked_into::<HtmlInputElement>().value();
             if value.is_empty() {
-                on_input.emit(Err(Error::Empty))
+                on_input.emit(Err(InputError::Empty));
+                return;
             }
-            let parse_value = T::from_str(&value).map_err(|_| Error::Parsing);
-            on_input.emit(parse_value)
+            let parse_value = value
+                .parse::<T>()
+                .map_err(|err| InputError::Parsing(err.to_string()));
+            on_input.emit(parse_value);
         })
     };
 
