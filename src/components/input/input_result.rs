@@ -17,7 +17,7 @@ where
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
             InputResult::Result(value) => writeln!(f, "{}", value),
-            InputResult::Empty => writeln!(f, ""),
+            InputResult::Empty => writeln!(f),
             InputResult::ParsingError(value) => writeln!(f, "{}", value),
         }
     }

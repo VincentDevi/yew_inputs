@@ -1,8 +1,9 @@
+mod input_result;
 mod style;
 
 use yew::prelude::*;
 
-use super::super::errors::Error as InputError;
+use input_result::InputResult;
 use std::{fmt::Display, str::FromStr};
 use style::*;
 use web_sys::HtmlInputElement;
@@ -10,7 +11,7 @@ use web_sys::HtmlInputElement;
 #[derive(Properties, PartialEq, Clone)]
 pub struct InputProps<T>
 where
-    T: PartialEq,
+    T: PartialEq + Display,
 {
     #[prop_or_default]
     pub placeholder: AttrValue,
@@ -25,19 +26,32 @@ where
     #[prop_or_default]
     pub right_icon: Html,
     #[prop_or_default]
-    pub on_input: Callback<Result<T, InputError>>,
+    pub on_input: Callback<InputResult<T>>,
+    #[prop_or_default]
     pub input_type: InptuType,
 }
 
-#[derive(PartialEq, Clone, Copy, Default, strum_macros::Display)]
+#[derive(PartialEq, Clone, Copy)]
 pub enum InptuType {
-    #[strum(to_string = "text")]
-    #[default]
     Text,
-    #[strum(to_string = "number")]
     Number,
-    #[strum(to_string = "email")]
     Email,
+}
+
+impl Default for InptuType {
+    fn default() -> Self {
+        Self::Text
+    }
+}
+
+impl Display for InptuType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            InptuType::Text => writeln!(f, "text"),
+            InptuType::Number => writeln!(f, "number"),
+            InptuType::Email => writeln!(f, "email"),
+        }
+    }
 }
 
 #[function_component]
@@ -51,13 +65,15 @@ where
         Callback::from(move |e: InputEvent| {
             let value = e.target_unchecked_into::<HtmlInputElement>().value();
             if value.is_empty() {
-                on_input.emit(Err(InputError::Empty));
+                on_input.emit(InputResult::Empty);
                 return;
             }
-            let parse_value = value
-                .parse::<T>()
-                .map_err(|err| InputError::Parsing(err.to_string()));
-            on_input.emit(parse_value);
+            let parse_value = value.parse::<T>();
+            let ok = match parse_value {
+                Ok(v) => InputResult::Result(v),
+                Err(err) => InputResult::ParsingError(err.to_string()),
+            };
+            on_input.emit(ok);
         })
     };
 
