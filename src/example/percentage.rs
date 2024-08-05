@@ -2,11 +2,16 @@ use yew::prelude::*;
 
 use super::super::components::Input;
 
-use derive_more::Constructor;
 use std::{fmt::Display, num::ParseIntError, str::FromStr};
 
-#[derive(Debug, PartialEq, Clone, Copy, Constructor)]
+#[derive(Debug, PartialEq, Clone, Copy)]
 struct Percetange(u32);
+
+impl Percetange {
+    pub fn new(value: u32) -> Self {
+        Self(value)
+    }
+}
 
 impl Display for Percetange {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {

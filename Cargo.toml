@@ -4,6 +4,5 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-derive_more = "0.99"
 yew = { version = "0.21", features=["csr"] }
 web-sys = "0.3"
