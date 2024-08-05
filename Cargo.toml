@@ -7,5 +7,3 @@ edition = "2021"
 derive_more = "0.99"
 yew = { version = "0.21", features=["csr"] }
 web-sys = "0.3"
-strum = "0.26"
-strum_macros = "0.26"
