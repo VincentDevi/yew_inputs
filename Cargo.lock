@@ -1217,7 +1217,6 @@ dependencies = [
  "derive_more",
  "strum",
  "strum_macros",
- "thiserror",
  "web-sys",
  "yew",
 ]
