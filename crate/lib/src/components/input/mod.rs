@@ -3,9 +3,9 @@ mod style;
 
 use yew::prelude::*;
 
-use input_result::InputResult;
+pub use input_result::InputResult;
 use std::{fmt::Display, str::FromStr};
-use style::*;
+pub use style::*;
 use web_sys::HtmlInputElement;
 
 #[derive(Properties, PartialEq, Clone)]

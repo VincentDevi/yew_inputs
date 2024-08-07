@@ -1,5 +1,7 @@
 use std::ops::Deref;
 
+use yew::html::IntoPropValue;
+
 #[derive(PartialEq, Clone, Copy)]
 pub struct Validity(bool);
 
@@ -7,6 +9,11 @@ impl Deref for Validity {
     type Target = bool;
     fn deref(&self) -> &Self::Target {
         &self.0
+    }
+}
+impl IntoPropValue<Validity> for bool {
+    fn into_prop_value(self) -> Validity {
+        Validity(self)
     }
 }
 

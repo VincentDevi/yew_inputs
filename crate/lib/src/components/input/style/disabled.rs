@@ -1,5 +1,7 @@
 use std::ops::Deref;
 
+use yew::html::IntoPropValue;
+
 #[derive(PartialEq, Clone, Copy, Default)]
 pub struct Disabled(bool);
 
@@ -7,6 +9,12 @@ impl Deref for Disabled {
     type Target = bool;
     fn deref(&self) -> &Self::Target {
         &self.0
+    }
+}
+
+impl IntoPropValue<Disabled> for bool {
+    fn into_prop_value(self) -> Disabled {
+        Disabled(self)
     }
 }
 
