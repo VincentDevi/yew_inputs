@@ -1,0 +1,10 @@
+/Users/vincentdev/yew_inputs/crate/example/target/debug/deps/libgloo_storage-b3a30cb2b301268d.rmeta: /Users/vincentdev/.cargo/registry/src/index.crates.io-6f17d22bba15001f/gloo-storage-0.3.0/src/lib.rs /Users/vincentdev/.cargo/registry/src/index.crates.io-6f17d22bba15001f/gloo-storage-0.3.0/src/errors.rs /Users/vincentdev/.cargo/registry/src/index.crates.io-6f17d22bba15001f/gloo-storage-0.3.0/src/local_storage.rs /Users/vincentdev/.cargo/registry/src/index.crates.io-6f17d22bba15001f/gloo-storage-0.3.0/src/session_storage.rs
+
+/Users/vincentdev/yew_inputs/crate/example/target/debug/deps/libgloo_storage-b3a30cb2b301268d.rlib: /Users/vincentdev/.cargo/registry/src/index.crates.io-6f17d22bba15001f/gloo-storage-0.3.0/src/lib.rs /Users/vincentdev/.cargo/registry/src/index.crates.io-6f17d22bba15001f/gloo-storage-0.3.0/src/errors.rs /Users/vincentdev/.cargo/registry/src/index.crates.io-6f17d22bba15001f/gloo-storage-0.3.0/src/local_storage.rs /Users/vincentdev/.cargo/registry/src/index.crates.io-6f17d22bba15001f/gloo-storage-0.3.0/src/session_storage.rs
+
+/Users/vincentdev/yew_inputs/crate/example/target/debug/deps/gloo_storage-b3a30cb2b301268d.d: /Users/vincentdev/.cargo/registry/src/index.crates.io-6f17d22bba15001f/gloo-storage-0.3.0/src/lib.rs /Users/vincentdev/.cargo/registry/src/index.crates.io-6f17d22bba15001f/gloo-storage-0.3.0/src/errors.rs /Users/vincentdev/.cargo/registry/src/index.crates.io-6f17d22bba15001f/gloo-storage-0.3.0/src/local_storage.rs /Users/vincentdev/.cargo/registry/src/index.crates.io-6f17d22bba15001f/gloo-storage-0.3.0/src/session_storage.rs
+
+/Users/vincentdev/.cargo/registry/src/index.crates.io-6f17d22bba15001f/gloo-storage-0.3.0/src/lib.rs:
+/Users/vincentdev/.cargo/registry/src/index.crates.io-6f17d22bba15001f/gloo-storage-0.3.0/src/errors.rs:
+/Users/vincentdev/.cargo/registry/src/index.crates.io-6f17d22bba15001f/gloo-storage-0.3.0/src/local_storage.rs:
+/Users/vincentdev/.cargo/registry/src/index.crates.io-6f17d22bba15001f/gloo-storage-0.3.0/src/session_storage.rs:
