@@ -1,6 +1,6 @@
 use yew::prelude::*;
 
-use lib::components::*;
+use lib::*;
 use std::{fmt::Display, num::ParseIntError, str::FromStr};
 
 #[derive(Debug, PartialEq, Clone, Copy)]

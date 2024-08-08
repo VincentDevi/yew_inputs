@@ -1,6 +1,6 @@
 use yew::prelude::*;
 
-use lib::components::*;
+use lib::*;
 
 #[derive(Properties, PartialEq)]
 pub struct InputDateProps {
