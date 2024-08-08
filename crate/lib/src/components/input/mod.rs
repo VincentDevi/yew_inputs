@@ -29,30 +29,30 @@ where
     #[prop_or_default]
     pub on_input: Callback<InputResult<T>>,
     #[prop_or_default]
-    pub input_type: InptuType,
+    pub input_type: InputType,
 }
 
 #[derive(PartialEq, Clone, Copy)]
-pub enum InptuType {
+pub enum InputType {
     Text,
     Number, // Worst Input, when value is Invalid, always return an empty string...
     Email,
     Date,
 }
 
-impl Default for InptuType {
+impl Default for InputType {
     fn default() -> Self {
         Self::Text
     }
 }
 
-impl Display for InptuType {
+impl Display for InputType {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-            InptuType::Text => write!(f, "text"),
-            InptuType::Number => write!(f, "number"),
-            InptuType::Email => write!(f, "email"),
-            InptuType::Date => write!(f, "date"),
+            InputType::Text => write!(f, "text"),
+            InputType::Number => write!(f, "number"),
+            InputType::Email => write!(f, "email"),
+            InputType::Date => write!(f, "date"),
         }
     }
 }
