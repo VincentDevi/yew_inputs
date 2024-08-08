@@ -12,6 +12,50 @@ where
     ParsingError(ParsingError),
 }
 
+impl<T> InputResult<T>
+where
+    T: Display + Clone + PartialEq,
+{
+    pub fn get_parsing_error(&self) -> Option<ParsingError> {
+        if let InputResult::ParsingError(v) = self {
+            Some(v.clone())
+        } else {
+            None
+        }
+    }
+    pub fn get_result(&self) -> Option<T> {
+        if let InputResult::Result(v) = self {
+            Some(v.clone())
+        } else {
+            None
+        }
+    }
+    pub fn is_empty(&self) -> bool {
+        self == &InputResult::Empty
+    }
+}
+
+impl<T> From<T> for InputResult<T>
+where
+    T: Display,
+{
+    fn from(value: T) -> Self {
+        InputResult::Result(value)
+    }
+}
+
+impl<T> From<Option<T>> for InputResult<T>
+where
+    T: Display,
+{
+    fn from(value: Option<T>) -> Self {
+        match value {
+            Some(v) => InputResult::Result(v),
+            None => InputResult::Empty,
+        }
+    }
+}
+
 impl<T> Display for InputResult<T>
 where
     T: Display,
@@ -44,11 +88,10 @@ where
 // Since it always returns an empty string
 // when using oninput, it will clear our input, that's why I keep track of the old value
 // otherwise, our input will be confusing for our users
-
 #[derive(Debug, PartialEq, Clone)]
 pub struct ParsingError {
-    pub old_value: String,
-    pub error: String,
+    old_value: String,
+    error: String,
 }
 
 impl ParsingError {
@@ -56,6 +99,21 @@ impl ParsingError {
         Self {
             old_value: old_value.to_string(),
             error: error.to_string(),
+        }
+    }
+
+    pub fn get_error(&self) -> String {
+        self.error.clone()
+    }
+
+    pub fn get_ol_value(&self) -> String {
+        self.old_value.clone()
+    }
+
+    pub fn new_error(&self, error: &str) -> Self {
+        Self {
+            error: error.to_string(),
+            ..self.clone()
         }
     }
 }
