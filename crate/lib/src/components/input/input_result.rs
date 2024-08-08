@@ -35,6 +35,18 @@ where
     }
 }
 
+impl<T> From<Option<T>> for InputResult<T>
+where
+    T: Display,
+{
+    fn from(value: Option<T>) -> Self {
+        match value {
+            Some(v) => InputResult::Result(v),
+            None => InputResult::Empty,
+        }
+    }
+}
+
 impl<T> Display for InputResult<T>
 where
     T: Display,
@@ -67,7 +79,6 @@ where
 // Since it always returns an empty string
 // when using oninput, it will clear our input, that's why I keep track of the old value
 // otherwise, our input will be confusing for our users
-
 #[derive(Debug, PartialEq, Clone)]
 pub struct ParsingError {
     old_value: String,
@@ -90,7 +101,7 @@ impl ParsingError {
         self.old_value.clone()
     }
 
-    pub fn add_error(&self, error: &str) -> Self {
+    pub fn new_error(&self, error: &str) -> Self {
         Self {
             error: error.to_string(),
             ..self.clone()
