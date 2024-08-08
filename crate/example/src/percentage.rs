@@ -1,50 +1,59 @@
 use yew::prelude::*;
 
-//use super::super::components::{Input, InputResult};
-use std::{fmt::Display, num::ParseIntError, option::Option, str::FromStr};
+use lib::components::*;
+use std::{fmt::Display, num::ParseIntError, str::FromStr};
 
 #[derive(Debug, PartialEq, Clone, Copy)]
-struct Percentange(u32);
+pub struct Percentange(u64);
 
 impl Percentange {
-    pub fn new(value: u32) -> Self {
+    pub fn new(value: u64) -> Self {
         Self(value)
     }
 }
 
 impl Display for Percentange {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        writeln!(f, "{}", self.0)
+        write!(f, "{}", self.0)
     }
 }
 
 impl FromStr for Percentange {
     type Err = ParseIntError;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parsing = s.parse::<u32>()?;
+        let parsing = s.parse::<u64>()?;
         Ok(Self::new(parsing))
     }
 }
 
 #[derive(Properties, PartialEq)]
-struct InputPercentageProps {
-    pub percentage: Option<Percentange>,
-    // pub on_input: Callback<InputResult<Percentange>>,
+pub struct InputPercentageProps {
+    pub percentage: InputResult<Percentange>,
+    pub on_input: Callback<InputResult<Percentange>>,
     #[prop_or(true)]
     pub is_valid: bool,
     #[prop_or_default]
     pub disabled: bool,
+    #[prop_or_default]
+    pub placeholder: AttrValue,
 }
 
 #[function_component]
-fn InputPercentage(props: &InputPercentageProps) -> Html {
+pub fn InputPercentage(props: &InputPercentageProps) -> Html {
+    let value = match &props.percentage {
+        InputResult::Result(v) => v.to_string(),
+        InputResult::Empty => String::default(),
+        InputResult::ParsingError(v) => v.old_value.clone(),
+    };
     html!(
-    //        <Input<Percentange>
-     //           value={props.percentage.map(|x|x.to_string()).unwrap_or_default()}
-      //          on_input={props.on_input.clone()}
-       //         right_icon={html!({"%"})}
-       //         is_valid={props.is_valid}
-       //         disabled={props.disabled}
-        //    />
-        )
+        <Input<Percentange>
+            {value}
+            on_input={&props.on_input}
+            right_icon={html!({"%"})}
+            is_valid={props.is_valid}
+            disabled={props.disabled}
+            placeholder={&props.placeholder}
+            input_type={InptuType::Number}
+        />
+    )
 }

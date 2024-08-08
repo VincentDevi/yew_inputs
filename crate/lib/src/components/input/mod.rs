@@ -1,6 +1,7 @@
 mod input_result;
 mod style;
 
+use input_result::ParsingError;
 use yew::prelude::*;
 
 pub use input_result::InputResult;
@@ -34,8 +35,9 @@ where
 #[derive(PartialEq, Clone, Copy)]
 pub enum InptuType {
     Text,
-    Number,
+    Number, // Worst Input, when value is Invalid, always return an empty string...
     Email,
+    Date,
 }
 
 impl Default for InptuType {
@@ -47,9 +49,10 @@ impl Default for InptuType {
 impl Display for InptuType {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-            InptuType::Text => writeln!(f, "text"),
-            InptuType::Number => writeln!(f, "number"),
-            InptuType::Email => writeln!(f, "email"),
+            InptuType::Text => write!(f, "text"),
+            InptuType::Number => write!(f, "number"),
+            InptuType::Email => write!(f, "email"),
+            InptuType::Date => write!(f, "date"),
         }
     }
 }
@@ -68,17 +71,21 @@ where
                 on_input.emit(InputResult::Empty);
                 return;
             }
+
             let parse_value = value.parse::<T>();
-            let ok = match parse_value {
+            let result = match parse_value {
                 Ok(v) => InputResult::Result(v),
-                Err(err) => InputResult::ParsingError(err.to_string()),
+                Err(err) => InputResult::ParsingError(ParsingError::new(
+                    value.as_str(),
+                    err.to_string().as_str(),
+                )),
             };
-            on_input.emit(ok);
+            on_input.emit(result);
         })
     };
 
     html!(
-        <div class={format!("w-full h-full {} {} ",props.is_valid.border(),props.disabled.background_color())}>
+        <div class={format!("w-full h-full {} {} border ",props.is_valid.border(),props.disabled.background_color())}>
             {props.left_icon.clone()}
             <input
                 value={&props.value}
