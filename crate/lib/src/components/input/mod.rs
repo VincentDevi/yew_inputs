@@ -21,6 +21,10 @@ where
     #[prop_or_default]
     pub value: AttrValue,
     #[prop_or_default]
+    pub name: AttrValue,
+    #[prop_or_default]
+    pub required: bool,
+    #[prop_or_default]
     pub is_valid: Validity,
     #[prop_or_default]
     pub left_icon: Html,
@@ -38,6 +42,9 @@ pub enum InputType {
     Number, // Worst Input, when value is Invalid, always return an empty string...
     Email,
     Date,
+    Phone,
+    Month,
+    Search,
 }
 
 impl Default for InputType {
@@ -53,6 +60,9 @@ impl Display for InputType {
             InputType::Number => write!(f, "number"),
             InputType::Email => write!(f, "email"),
             InputType::Date => write!(f, "date"),
+            InputType::Phone => write!(f, "tel"),
+            InputType::Month => write!(f, "month"),
+            InputType::Search => write!(f, "search"),
         }
     }
 }
@@ -61,7 +71,7 @@ impl Display for InputType {
 pub fn Input<T>(props: &InputProps<T>) -> Html
 where
     T: PartialEq + Clone + Display + FromStr + 'static,
-    <T as FromStr>::Err: std::fmt::Debug + Display,
+    <T as FromStr>::Err: Display,
 {
     let oninput = {
         let on_input = props.on_input.clone();
@@ -90,6 +100,7 @@ where
             <input
                 value={&props.value}
                 class={format!("border-none focus:border-transparent focus:outline-none px-2.5 {} ",props.disabled.cursor())}
+                name={&props.name}
                 {oninput}
                 type={props.input_type.to_string()}
                 placeholder={&props.placeholder}

@@ -1,4 +1,6 @@
-use std::fmt::Display;
+use std::{fmt::Display, str::FromStr};
+
+use yew::{html::IntoPropValue, AttrValue};
 
 #[derive(Debug, PartialEq, Clone)]
 pub enum InputResult<T>
@@ -20,6 +22,21 @@ where
             InputResult::Empty => writeln!(f),
             InputResult::ParsingError(value) => writeln!(f, "{}", value.old_value),
         }
+    }
+}
+
+impl<T> IntoPropValue<AttrValue> for InputResult<T>
+where
+    T: Display + FromStr + 'static,
+    <T as FromStr>::Err: Display,
+{
+    fn into_prop_value(self) -> AttrValue {
+        match self {
+            InputResult::Empty => "".to_string(),
+            InputResult::ParsingError(v) => v.old_value,
+            InputResult::Result(v) => v.to_string(),
+        }
+        .into()
     }
 }
 

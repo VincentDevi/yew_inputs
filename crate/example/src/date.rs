@@ -16,14 +16,9 @@ pub struct InputDateProps {
 
 #[function_component]
 pub fn InputDate(props: &InputDateProps) -> Html {
-    let value = match &props.date {
-        InputResult::Result(v) => v.clone(),
-        InputResult::Empty => String::default(),
-        InputResult::ParsingError(v) => v.old_value.to_string(),
-    };
     html!(
         <Input<String>
-            {value}
+            value={props.date.clone()}
             on_input={&props.on_input}
             is_valid={props.is_valid}
             disabled={props.disabled}
