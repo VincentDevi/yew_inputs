@@ -34,12 +34,12 @@ fn App() -> Html {
 
     let percentage_display = match (*form_state).clone() {
         InputResult::Result(_) => html!(),
-        InputResult::ParsingError(err) => html!(<p class="text-red-600" > {err.error} </p>),
+        InputResult::ParsingError(err) => html!(<p class="text-red-600" > {err.get_error()} </p>),
         InputResult::Empty => html!(<p> {"c'est vide"} </p>),
     };
     let date_display = match (*form_date).clone() {
         InputResult::Result(_) => html!(),
-        InputResult::ParsingError(err) => html!(<p class="text-red-600" > {err.error} </p>),
+        InputResult::ParsingError(err) => html!(<p class="text-red-600" > {err.get_error()} </p>),
         InputResult::Empty => html!(<p> {"c'est vide"} </p>),
     };
 
