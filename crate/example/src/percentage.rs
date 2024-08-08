@@ -40,14 +40,9 @@ pub struct InputPercentageProps {
 
 #[function_component]
 pub fn InputPercentage(props: &InputPercentageProps) -> Html {
-    let value = match &props.percentage {
-        InputResult::Result(v) => v.to_string(),
-        InputResult::Empty => String::default(),
-        InputResult::ParsingError(v) => v.old_value.clone(),
-    };
     html!(
         <Input<Percentage>
-            {value}
+            value={props.percentage.clone()}
             on_input={&props.on_input}
             right_icon={html!({"%"})}
             is_valid={props.is_valid}
