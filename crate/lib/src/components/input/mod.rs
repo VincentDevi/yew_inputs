@@ -71,7 +71,7 @@ impl Display for InputType {
 pub fn Input<T>(props: &InputProps<T>) -> Html
 where
     T: PartialEq + Clone + Display + FromStr + 'static,
-    <T as FromStr>::Err: std::fmt::Debug + Display,
+    <T as FromStr>::Err: Display,
 {
     let oninput = {
         let on_input = props.on_input.clone();
