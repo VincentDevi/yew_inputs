@@ -35,6 +35,15 @@ where
     }
 }
 
+impl<T> From<T> for InputResult<T>
+where
+    T: Display,
+{
+    fn from(value: T) -> Self {
+        InputResult::Result(value)
+    }
+}
+
 impl<T> From<Option<T>> for InputResult<T>
 where
     T: Display,
