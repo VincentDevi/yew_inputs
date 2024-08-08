@@ -8,7 +8,7 @@ use yew::prelude::*;
 
 #[function_component]
 fn App() -> Html {
-    let form_state: UseStateHandle<InputResult<Percentange>> = use_state(|| InputResult::Empty);
+    let form_state: UseStateHandle<InputResult<Percentage>> = use_state(|| InputResult::Empty);
     let form_date: UseStateHandle<InputResult<String>> = use_state(|| InputResult::Empty);
 
     let button_click = {
@@ -29,7 +29,7 @@ fn App() -> Html {
     let on_percentage = {
         let form_state = form_state.clone();
 
-        Callback::from(move |res: InputResult<Percentange>| form_state.set(res))
+        Callback::from(move |res: InputResult<Percentage>| form_state.set(res))
     };
 
     let percentage_display = match (*form_state).clone() {

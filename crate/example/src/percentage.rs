@@ -4,21 +4,21 @@ use lib::components::*;
 use std::{fmt::Display, num::ParseIntError, str::FromStr};
 
 #[derive(Debug, PartialEq, Clone, Copy)]
-pub struct Percentange(u64);
+pub struct Percentage(u64);
 
-impl Percentange {
+impl Percentage {
     pub fn new(value: u64) -> Self {
         Self(value)
     }
 }
 
-impl Display for Percentange {
+impl Display for Percentage {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(f, "{}", self.0)
     }
 }
 
-impl FromStr for Percentange {
+impl FromStr for Percentage {
     type Err = ParseIntError;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let parsing = s.parse::<u64>()?;
@@ -28,8 +28,8 @@ impl FromStr for Percentange {
 
 #[derive(Properties, PartialEq)]
 pub struct InputPercentageProps {
-    pub percentage: InputResult<Percentange>,
-    pub on_input: Callback<InputResult<Percentange>>,
+    pub percentage: InputResult<Percentage>,
+    pub on_input: Callback<InputResult<Percentage>>,
     #[prop_or(true)]
     pub is_valid: bool,
     #[prop_or_default]
@@ -46,14 +46,14 @@ pub fn InputPercentage(props: &InputPercentageProps) -> Html {
         InputResult::ParsingError(v) => v.old_value.clone(),
     };
     html!(
-        <Input<Percentange>
+        <Input<Percentage>
             {value}
             on_input={&props.on_input}
             right_icon={html!({"%"})}
             is_valid={props.is_valid}
             disabled={props.disabled}
             placeholder={&props.placeholder}
-            input_type={InptuType::Number}
+            input_type={InputType::Number}
         />
     )
 }

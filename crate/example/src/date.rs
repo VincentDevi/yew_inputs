@@ -28,7 +28,7 @@ pub fn InputDate(props: &InputDateProps) -> Html {
             is_valid={props.is_valid}
             disabled={props.disabled}
             placeholder={&props.placeholder}
-            input_type={InptuType::Date}
+            input_type={InputType::Date}
         />
     )
 }
