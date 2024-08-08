@@ -2,7 +2,7 @@ mod date;
 mod percentage;
 
 use date::*;
-use lib::components::InputResult;
+use lib::InputResult;
 use percentage::*;
 use yew::prelude::*;
 
