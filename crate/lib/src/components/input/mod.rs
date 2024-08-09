@@ -19,7 +19,7 @@ where
     #[prop_or_default]
     pub disabled: Disabled,
     #[prop_or_default]
-    pub value: AttrValue,
+    pub value: InputResult<T>,
     #[prop_or_default]
     pub name: AttrValue,
     #[prop_or_default]
@@ -98,7 +98,7 @@ where
         <div class={format!("w-full h-full {} {} border ",props.is_valid.border(),props.disabled.background_color())}>
             {props.left_icon.clone()}
             <input
-                value={&props.value}
+                value={props.value.to_string()}
                 class={format!("border-none focus:border-transparent focus:outline-none px-2.5 {} ",props.disabled.cursor())}
                 name={&props.name}
                 {oninput}
