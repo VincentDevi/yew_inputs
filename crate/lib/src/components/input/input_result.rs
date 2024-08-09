@@ -2,12 +2,13 @@ use std::{fmt::Display, str::FromStr};
 
 use yew::{html::IntoPropValue, AttrValue};
 
-#[derive(Debug, PartialEq, Clone)]
+#[derive(Debug, PartialEq, Clone, Default)]
 pub enum InputResult<T>
 where
     T: Display,
 {
     Result(T),
+    #[default]
     Empty,
     ParsingError(ParsingError),
 }
