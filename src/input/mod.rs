@@ -41,7 +41,6 @@ where
 pub fn Input<T>(props: &InputProps<T>) -> Html
 where
     T: PartialEq + Clone + Display + FromStr + 'static,
-    <T as FromStr>::Err: Display,
 {
     let style = use_safe_input_style()
         .map(|x| x.style())
