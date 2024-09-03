@@ -4,13 +4,13 @@ use yew::prelude::*;
 
 mod context;
 mod error;
-mod value;
 mod input_type;
+mod value;
 
 pub use context::*;
 pub use error::*;
+use input_type::*;
 pub use value::*;
-pub use input_type::*;
 
 #[derive(Properties, PartialEq, Clone)]
 pub struct InputProps<T>
