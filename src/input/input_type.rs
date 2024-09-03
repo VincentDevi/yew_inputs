@@ -1,5 +1,7 @@
 use std::fmt::Display;
 
+use yew::{html::IntoPropValue, AttrValue};
+
 #[derive(PartialEq, Clone, Copy)]
 pub enum InputType {
     Text,
@@ -27,6 +29,20 @@ impl Display for InputType {
             InputType::Phone => write!(f, "tel"),
             InputType::Month => write!(f, "month"),
             InputType::Search => write!(f, "search"),
+        }
+    }
+}
+
+impl IntoPropValue<InputType> for AttrValue {
+    fn into_prop_value(self) -> InputType {
+        match self {
+            AttrValue::Static("number") => InputType::Number,
+            AttrValue::Static("email") => InputType::Email,
+            AttrValue::Static("date") => InputType::Date,
+            AttrValue::Static("phone") => InputType::Phone,
+            AttrValue::Static("month") => InputType::Month,
+            AttrValue::Static("search") => InputType::Search,
+            _ => InputType::Text,
         }
     }
 }
