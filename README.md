@@ -32,7 +32,7 @@ fn app() -> Html {
     html! {
         <Input<u32>
             placeholder="Enter a number"
-            input_type={InputType::Number}
+            input_type={"number"}
             value={(*value).clone()}
             {onchange}
             required=true
