@@ -16,7 +16,7 @@ Here’s how to use the Input component with a u32 type:
 
 ```
 use yew::prelude::*;
-use your_input_library::{Input, InputValue, InputType};
+use yew_input::*;
 
 #[function_component(App)]
 fn app() -> Html {
